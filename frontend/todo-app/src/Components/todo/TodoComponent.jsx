@@ -21,6 +21,12 @@ class TodoComponent extends Component
 
     componentDidMount()
     {
+        //Dont want to mistakenly call retrieveTodo service when adding new todo, so returning early if id is -1
+        if(this.state.id===-1)
+        {
+            return
+        }
+
         let username = AuthenticationService.getLoggedInUserName()
         TodoDataService.retrieveTodo(username, this.state.id)
            // .then(response => console.log(response))
@@ -61,14 +67,26 @@ class TodoComponent extends Component
     {
         //set username value
         let username = AuthenticationService.getLoggedInUserName()
-        //call updateTodo method passing in username, id, and todo values
-        //the '.then' is what to do on success case --> in our case we want to put user back on the Todos page
-        TodoDataService.updateTodo(username, this.state.id, {
+        let todo = {
             id: this.state.id,
-            description: values.description, 
+            description: values.description,
             targetDate: values.targetDate
-        }).then(() => this.props.history.push('/todos'))
-        
+        }
+        //if this is a new todo
+        if (this.state.id ===-1) 
+        {
+            //call createTodo method passing in username, and todo
+            //the '.then' is what to do on success case --> in our case we want to put user back on the Todos page
+            TodoDataService.createTodo(username, todo).then(() => this.props.history.push('/todos'))
+        }
+        else
+        {
+            //call updateTodo method passing in username, id, and todo
+            //the '.then' is what to do on success case --> in our case we want to put user back on the Todos page
+            TodoDataService.updateTodo(username, this.state.id, todo).then(() => this.props.history.push('/todos'))
+
+        }
+
         console.log(values);
     }
     render()

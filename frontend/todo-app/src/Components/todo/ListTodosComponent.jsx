@@ -18,6 +18,7 @@ class ListTodosComponent extends Component
         }
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this);
         this.updateTodoClicked = this.updateTodoClicked.bind(this);
+        this.addTodoClicked = this.addTodoClicked.bind(this);
         this.refreshTodos = this.refreshTodos.bind(this);
     }
 
@@ -97,6 +98,14 @@ class ListTodosComponent extends Component
         )
     }
 
+    addTodoClicked()
+    {
+        //Giving this todo an id of -1 to signify new todo - Backend is expecting this
+        console.log('Add todo clicked')
+        this.props.history.push(`/todos/-1`)
+    }
+
+
     updateTodoClicked(id)
     {
         console.log('update' + id)
@@ -155,6 +164,10 @@ class ListTodosComponent extends Component
                                 }
                             </tbody>
                         </table>
+                        <div className="row">
+                            <button className="btn btn-success" onClick={this.addTodoClicked}>Add</button>
+
+                        </div>
                     </div>
             </div>
         )
