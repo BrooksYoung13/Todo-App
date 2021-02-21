@@ -15,7 +15,7 @@ public class TodoHardcodedService
 	
 	static 
 	{
-		todos.add(new Todo(++idCounter, "in28minutes", "Learn to Dance!!", new Date(), false));
+		todos.add(new Todo(++idCounter, "in28minutes", "Learn to Dfffffance!!", new Date(), false));
 		todos.add(new Todo(++idCounter, "in28minutes", "Learn about Microservices", new Date(), false));
 		todos.add(new Todo(++idCounter, "in28minutes", "Learn about Angular", new Date(), false));
 	}

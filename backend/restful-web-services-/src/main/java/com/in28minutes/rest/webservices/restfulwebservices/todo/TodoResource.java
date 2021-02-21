@@ -30,7 +30,7 @@ public class TodoResource
 	}
 	
 	//@GetMapping is the url this info is going to go to
-	//Return 1 specific Todo based on id
+	//Return 1 specific Todo based on id ..
 	@GetMapping("/users/{username}/todos/{id}")
 	//The parameter we are passing in is a path variable meaning we can use it on front end
 	public Todo getTodo(@PathVariable String username, @PathVariable long id) 
