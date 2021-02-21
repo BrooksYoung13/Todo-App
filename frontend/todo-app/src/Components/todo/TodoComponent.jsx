@@ -59,6 +59,16 @@ class TodoComponent extends Component
 
     onSubmit(values)
     {
+        //set username value
+        let username = AuthenticationService.getLoggedInUserName()
+        //call updateTodo method passing in username, id, and todo values
+        //the '.then' is what to do on success case --> in our case we want to put user back on the Todos page
+        TodoDataService.updateTodo(username, this.state.id, {
+            id: this.state.id,
+            description: values.description, 
+            targetDate: values.targetDate
+        }).then(() => this.props.history.push('/todos'))
+        
         console.log(values);
     }
     render()
