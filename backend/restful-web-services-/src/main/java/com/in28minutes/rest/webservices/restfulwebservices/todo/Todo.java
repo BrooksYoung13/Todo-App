@@ -11,6 +11,12 @@ public class Todo
 	private Date targetDate;
 	private boolean isDone;
 	
+	//Default constructor to allow some rest calls to work (PUT)
+	protected Todo()
+	{
+		
+	}
+	
 	public Todo(long id, String username, String description, Date targetDate, boolean isDone) 
 	{
 		super();

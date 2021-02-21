@@ -1,5 +1,6 @@
 package com.in28minutes.rest.webservices.restfulwebservices.todo;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 //Telling spring is ok to talk to something on port 4200, we need this
@@ -70,4 +73,21 @@ public class TodoResource
 	
 	//Create a new Todo
 	//POST /users/{user_name}/todos/
+	@PostMapping("/users/{username}/todos")
+	public ResponseEntity<Void> updateTodo(
+			@PathVariable String username, @RequestBody Todo todo)
+	{
+		//create a todo
+		Todo createdTodo = todoService.save(todo);
+		//Location
+		//Get current resource url
+		//{id}
+		
+		//"id" in path is being replaced with the ID of the created Todo
+		//Take current requeset path and appending /id (
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdTodo.getId()).toUri();
+		
+		//return newly created uri
+		return ResponseEntity.created(uri).build();
+	}
 }
