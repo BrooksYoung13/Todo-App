@@ -15,7 +15,7 @@ public class TodoHardcodedService
 	
 	static 
 	{
-		todos.add(new Todo(++idCounter, "in28minutes", "Learn to Dance!!", new Date(), false));
+		todos.add(new Todo(++idCounter, "in28minutes", "Learn to Dance!!!", new Date(), false));
 		todos.add(new Todo(++idCounter, "in28minutes", "Learn about Microservices", new Date(), false));
 		todos.add(new Todo(++idCounter, "in28minutes", "Learn about Angular", new Date(), false));
 	}
@@ -23,6 +23,25 @@ public class TodoHardcodedService
 	public List<Todo> findAll()
 	{
 		return todos;
+	}
+	
+	/*
+	 * if the id of the Todo is -1 we want to add it in with an ID 1 more than the most recent todo.getId()
+	 * else, we want to update the current todo by deleting it and adding a new one
+	 */
+	public Todo save(Todo todo)
+	{
+		if(todo.getId()==-1)
+		{
+			todo.setId(++idCounter);
+			todos.add(todo);
+		}
+		else
+		{
+			deleteById(todo.getId());
+			todos.add(todo);
+		}
+		return todo;
 	}
 	
 	public Todo deleteById(long id)
