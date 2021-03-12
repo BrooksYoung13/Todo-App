@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 //Controller - Tell spring this will handle rest requests
 @RestController
 //Telling spring is ok to talk to something on port 4200, we need this
-@CrossOrigin(origins="http://localhost:4200")
+//@CrossOrigin(origins="http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true", allowedHeaders = "*")
 
 public class HelloWorldController 
 {

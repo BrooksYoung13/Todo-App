@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 //Telling spring is ok to talk to something on port 4200, we need this
 @CrossOrigin(origins="http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true", allowedHeaders = "*")
 public class TodoResource 
 {
 	//@Autowired below tells spring to manage dependencies for us

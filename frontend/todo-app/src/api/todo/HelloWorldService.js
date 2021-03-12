@@ -26,8 +26,21 @@ class HelloWorldService
         //This is returning a 'promise'
         //****************************************** */
         //IMPORTANT - Using 'tick character' (on tilde key) to allow us to return value that name represents
+        
+        let username = 'in28minutes'
+        let password = 'dummy'
 
-        return axios.get(`http://localhost:8080/hello-world/path-variable/${name}`);
+        //Creating basic authentication header, btoa performs base 64 encoding
+        //Adding prefix Basic 
+        let basicAuthHeader = 'Basic ' + window.btoa(username + ":" + password)
+        
+        //Adding additional parameter to axios get call so we can send authorization header
+        return axios.get(`http://localhost:8080/hello-world/path-variable/${name}`,
+        {
+            headers : {
+                authorization : basicAuthHeader
+            }
+        });
 
     }
 }
