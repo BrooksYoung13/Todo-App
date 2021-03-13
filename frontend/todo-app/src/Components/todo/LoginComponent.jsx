@@ -74,28 +74,46 @@ class LoginComponent extends Component
 
    loginClicked()
    {
-       //in28minutes, dummy are valid in this scenario
-       if(this.state.username==='in28minutes' && this.state.password==='dummy')
-       {
-           AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
-           //These below arent single quotes they are accent things, same key as tilde
-           this.props.history.push(`/welcome/${this.state.username}`)
-            console.log('Success!');
-           // this.forceUpdate;
-            //I believe you have to set both values here because I think the state persists so if you succeeded one time idk if youd need 
-            //to set it to false again if you failed
-            //when we redirect like above, we dont need to save the state of the component, so commenting these out
-           // this.setState({showSuccessMessage:true})
-            //this.setState({LoginFailed:false})
-       }
+    //    //in28minutes, dummy are valid in this scenario
+    //    if(this.state.username==='in28minutes' && this.state.password==='dummy')
+    //    {
+    //        AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+    //        //These below arent single quotes they are accent things, same key as tilde
+    //        this.props.history.push(`/welcome/${this.state.username}`)
+    //         console.log('Success!');
+    //        // this.forceUpdate;
+    //         //I believe you have to set both values here because I think the state persists so if you succeeded one time idk if youd need 
+    //         //to set it to false again if you failed
+    //         //when we redirect like above, we dont need to save the state of the component, so commenting these out
+    //        // this.setState({showSuccessMessage:true})
+    //         //this.setState({LoginFailed:false})
+    //    }
 
-       else
-       {
-            console.log('Fail!')
-            this.setState({showSuccessMessage:false})
-            this.setState({LoginFailed:true})
-       }
+    //    else
+    //    {
+    //         console.log('Fail!')
+    //         this.setState({showSuccessMessage:false})
+    //         this.setState({LoginFailed:true})
+    //    }
 
+
+
+       AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
+       //Success Case - if login user is authenticated do this
+       .then(() => 
+            {
+                AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+                //These below arent single quotes they are accent things, same key as tilde
+                this.props.history.push(`/welcome/${this.state.username}`)
+            })
+        //Failure Case
+        .catch(() =>
+            {
+                this.setState({showSuccessMessage:false})
+                this.setState({LoginFailed:true})
+            })
+       
+       
        //console.log(this.state)
 
    }
