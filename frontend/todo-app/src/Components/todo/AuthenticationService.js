@@ -4,10 +4,13 @@ class AuthenticationService
 {
     registerSuccessfulLogin(username, password)
     {
+        //Creating basic authentication header, btoa performs base 64 encoding
+        //Adding prefix Basic 
+        let basicAuthHeader = 'Basic ' + window.btoa(username + ":" + password)
         console.log('registerSuccessfulLogin')
         sessionStorage.setItem('authenticatedUser', username);
         //call setup axios interceptors here
-        this.setupAxiosInterceptors()
+        this.setupAxiosInterceptors(basicAuthHeader)
     }
 
     logout()
@@ -31,14 +34,9 @@ class AuthenticationService
     }
 
     //Add authorization header to every request
-    setupAxiosInterceptors()
+    setupAxiosInterceptors(basicAuthHeader)
     {
-        let username = 'in28minutes'
-        let password = 'dummy'
-
-        //Creating basic authentication header, btoa performs base 64 encoding
-        //Adding prefix Basic 
-        let basicAuthHeader = 'Basic ' + window.btoa(username + ":" + password)
+        
 
         //we only want to do this when user is logged in
         axios.interceptors.request.use(
