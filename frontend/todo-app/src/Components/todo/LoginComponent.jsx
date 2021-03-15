@@ -98,20 +98,33 @@ class LoginComponent extends Component
 
 
 
-       AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
-       //Success Case - if login user is authenticated do this
-       .then(() => 
-            {
-                AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
-                //These below arent single quotes they are accent things, same key as tilde
-                this.props.history.push(`/welcome/${this.state.username}`)
-            })
-        //Failure Case
-        .catch(() =>
-            {
-                this.setState({showSuccessMessage:false})
-                this.setState({LoginFailed:true})
-            })
+    //    AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
+    //    //Success Case - if login user is authenticated do this
+    //    .then(() => 
+    //         {
+    //             AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+    //             //These below arent single quotes they are accent things, same key as tilde
+    //             this.props.history.push(`/welcome/${this.state.username}`)
+    //         })
+    //     //Failure Case
+    //     .catch(() =>
+    //         {
+    //             this.setState({showSuccessMessage:false})
+    //             this.setState({LoginFailed:true})
+    //         })
+
+       AuthenticationService.executeJwtAuthenticationService(this.state.username, this.state.password)
+           //Success Case - looking for token in response
+           .then((response) => {
+               AuthenticationService.registerSuccessfulLoginForJwt(this.state.username, response.data.token);
+               //These below arent single quotes they are accent things, same key as tilde
+               this.props.history.push(`/welcome/${this.state.username}`)
+           })
+           //Failure Case
+           .catch(() => {
+               this.setState({ showSuccessMessage: false })
+               this.setState({ LoginFailed: true })
+           })
        
        
        //console.log(this.state)

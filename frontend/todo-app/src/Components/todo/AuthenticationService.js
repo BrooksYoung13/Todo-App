@@ -11,6 +11,13 @@ class AuthenticationService
         {headers: {authorization: this.createBasicAuthToken(username, password)}})
     }
 
+    //Calls basicauth from backend and returns token based on username and password
+    executeJwtAuthenticationService(username, password)
+    {
+        //Sends post request to the URL containing username and pw so works with rest services
+        return axios.post('http://localhost:8080/authenticate', {username, password})
+    }
+
     //Method to return header
     createBasicAuthToken(username, password)
     {
@@ -26,6 +33,18 @@ class AuthenticationService
         sessionStorage.setItem('authenticatedUser', username);
         //call setup axios interceptors here
         this.setupAxiosInterceptors(this.createBasicAuthToken(username, password))
+    }
+
+    registerSuccessfulLoginForJwt(username, token)
+    {
+        sessionStorage.setItem('authenticatedUser', username);
+        this.setupAxiosInterceptors(this.createJWTToken(token))
+    }
+
+    //Method to return jwt token
+    createJWTToken(token)
+    {
+        return 'Bearer ' + token
     }
 
     logout()
@@ -48,17 +67,15 @@ class AuthenticationService
         return user
     }
 
-    //Add authorization header to every request
-    setupAxiosInterceptors(basicAuthHeader)
+    //Send authorization token into every request after logging in
+    setupAxiosInterceptors(token)
     {
-        
-
         //we only want to do this when user is logged in
         axios.interceptors.request.use(
             (config) => {
                 if(this.isUserLoggedIn())
                 {
-                config.headers.authorization = basicAuthHeader
+                config.headers.authorization = token
                 }
                 return config
             }
