@@ -29,32 +29,6 @@ class LoginComponent extends Component
 
     }
 
-    /*
-    //Method to handle someone typing into the username text box
-    handleUsernameChange(event)
-    {
-        //prints value to console for debugging
-        console.log(event.target.value);
-        //Updating the state of username everytime a new value gets typed in
-        //passing in object which is new value
-        this.setState({username:event.target.value})
-    }
-
-    //Method to handle someone typing into the password text box
-    handlePasswordChange(event)
-    {
-        //prints value to console for debugging
-        console.log(event.target.value);
-        //Updating the state of password everytime a new value gets typed in
-        //passing in object which is new value
-        this.setState({password:event.target.value})
-    }
-    */
-    /*
-    Instead of hard coding specific change functions like the 2 above, we can write 1 generic change function
-
-    */
-
    handleChange(event)
    {
        //prints value to console for debugging
@@ -74,30 +48,6 @@ class LoginComponent extends Component
 
    loginClicked()
    {
-    //    //in28minutes, dummy are valid in this scenario
-    //    if(this.state.username==='in28minutes' && this.state.password==='dummy')
-    //    {
-    //        AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
-    //        //These below arent single quotes they are accent things, same key as tilde
-    //        this.props.history.push(`/welcome/${this.state.username}`)
-    //         console.log('Success!');
-    //        // this.forceUpdate;
-    //         //I believe you have to set both values here because I think the state persists so if you succeeded one time idk if youd need 
-    //         //to set it to false again if you failed
-    //         //when we redirect like above, we dont need to save the state of the component, so commenting these out
-    //        // this.setState({showSuccessMessage:true})
-    //         //this.setState({LoginFailed:false})
-    //    }
-
-    //    else
-    //    {
-    //         console.log('Fail!')
-    //         this.setState({showSuccessMessage:false})
-    //         this.setState({LoginFailed:true})
-    //    }
-
-
-
     //    AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
     //    //Success Case - if login user is authenticated do this
     //    .then(() => 
@@ -117,7 +67,7 @@ class LoginComponent extends Component
            //Success Case - looking for token in response
            .then((response) => {
                AuthenticationService.registerSuccessfulLoginForJwt(this.state.username, response.data.token);
-               //These below arent single quotes they are accent things, same key as tilde
+               //tics
                this.props.history.push(`/welcome/${this.state.username}`)
            })
            //Failure Case
